@@ -1,4 +1,13 @@
-// libraries for PT100
+// Arduino program to read
+// - DS18B20 PT100 temperature sensor
+// - AM2320B temperature&humidity sensor
+// print readings to serial and send via rf using radiohead library
+// and 433mhz ASK transmitter
+
+// Jani Sulunsilta
+// last modified 11.5.2018
+
+// libraries for DS18B20
 #include <OneWire.h>
 #include <DallasTemperature.h>
 // libraries for AM2320B
@@ -11,16 +20,16 @@
 OneWire oneWire(4); // set PT100 pin to 4
 DallasTemperature pt100(&oneWire);
 
-Adafruit_AM2320 am2320 = Adafruit_AM2320();
+Adafruit_AM2320 am2320 = Adafruit_AM2320(); // yellow to SDA/A4, whit to SCL/A5
 
-RH_ASK driver;
+RH_ASK driver; // default tx=12, rx=11
 
 void setup() {
   // start serial, pt100 and am2320
   Serial.begin(9600);
   pt100.begin();
   am2320.begin();
-  // start rf
+  // start rf driver
   if (!driver.init())
     Serial.println("init failed");
   

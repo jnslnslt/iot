@@ -12,12 +12,20 @@ void setup()
 }
 void loop()
 {
-    uint8_t buf[RH_ASK_MAX_MESSAGE_LEN];
-    uint8_t buflen = sizeof(buf); 
-    if (driver.recv(buf, &buflen)) // Non-blocking
-    {
-        // Message with a good checksum received, dump it.
-        Serial.write(buf, buflen); // print message to serial
-        Serial.println();
-    }
+  
+  uint8_t buf[RH_ASK_MAX_MESSAGE_LEN];
+  uint8_t buflen = sizeof(buf); 
+  if (driver.recv(buf, &buflen)) // Non-blocking
+  {
+      // Message with a good checksum received, dump it.
+      //Serial.write(buf, buflen); // print message to serial
+      float tdata[3];
+      memcpy(tdata,buf,sizeof(buf));
+      Serial.print(tdata[0]);
+      Serial.print(" ");
+      Serial.print(tdata[1]);
+      Serial.print(" ");
+      Serial.print(tdata[2]);
+      Serial.println();
+  }
 }

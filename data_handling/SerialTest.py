@@ -21,6 +21,9 @@ while True:
     if i > 10:
         i = 0
         timeseries = pd.Series(dict)
-        timeseries.to_hdf('store.h5', 'table', append=True)
+        #timeseries.to_hdf('store.h5', 'table', append=True)
+	timeseries.to_hdf('test.h5', 'temp1', mode='a', format='table', append=True)
         dict = {}
-	print(pd.read_hdf('store.h5', 'table'))
+	#print(pd.read_hdf('store.h5', 'table'))
+	print("")
+	print(pd.read_hdf('test.h5', 'temp1'))

@@ -54,13 +54,13 @@ class DataManager:
     def __init__(self):
         self.devices = {}
 
-    def readSettings(self, filename='C:/Users/janis/Documents/iot/data_handling/Settings.json'):
+    def readSettings(self, filename='Settings.json'):
         try:
             jsonFile = open(filename)
             data = json.load(jsonFile)
-        except FileNotFoundError:
-            print("File does not exist")
-            return
+        #except FileNotFoundError:
+        #    print("File does not exist")
+        #    return
         except:
             print("File reading failed")
             return
@@ -89,7 +89,7 @@ class DataManager:
             print("device ", values[0], " not found") #debug
             return
         # check if length of message matches device io number
-        elif (len(values)-1 != device.getIOLength()):
+        elif (len(values)-1 < device.getIOLength()):
             print("message length does not match") #debug
             return
         else:

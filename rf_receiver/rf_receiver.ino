@@ -19,13 +19,14 @@ void loop()
   {
       // Message with a good checksum received, dump it.
       //Serial.write(buf, buflen); // print message to serial
-      float tdata[3];
-      memcpy(tdata,buf,sizeof(buf));
-      Serial.print(tdata[0]);
+      float data[4];
+      memcpy(data,buf,sizeof(buf));
+      Serial.print(data[0],0);
       Serial.print(" ");
-      Serial.print(tdata[1]);
-      Serial.print(" ");
-      Serial.print(tdata[2]);
+      for (byte i=1; i <= 3; i++) {
+        Serial.print(data[i]);
+        Serial.print(" ");
+      }
       Serial.println();
   }
 }

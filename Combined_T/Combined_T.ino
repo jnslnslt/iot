@@ -17,6 +17,8 @@
 #include <RH_ASK.h>
 #include <SPI.h> // not used but needed to compile
 
+const float DEVICE_ID = 888001;
+
 OneWire oneWire(4); // set PT100 pin to 4
 DallasTemperature pt100(&oneWire);
 
@@ -38,20 +40,21 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  float data[3];
+  float data[4];
+  data[0] = DEVICE_ID;
 
   // Read pt100 temp
   pt100.requestTemperatures();
-  data[0] = pt100.getTempCByIndex(0);
-  Serial.print("PT100: "), Serial.println(data[0]);
+  data[1] = pt100.getTempCByIndex(0);
+  Serial.print("PT100: "), Serial.println(data[1]);
 
   // Read am2320 temp
-  data[1] = am2320.readTemperature();
-  Serial.print("AM2320 T: "), Serial.println(data[1]);
+  data[2] = am2320.readTemperature();
+  Serial.print("AM2320 T: "), Serial.println(data[2]);
 
   // Read am2320 humidity
-  data[2] = am2320.readHumidity();
-  Serial.print("AM2320 H: "), Serial.println(data[2]);
+  data[3] = am2320.readHumidity();
+  Serial.print("AM2320 H: "), Serial.println(data[3]);
 
   // Send readings via rf
   driver.send((uint8_t *)&data, sizeof(data));

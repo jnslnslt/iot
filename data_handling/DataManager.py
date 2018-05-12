@@ -50,7 +50,7 @@ class Device:
 
 
 
-class Devices:
+class DataManager:
     def __init__(self):
         self.devices = {}
 
@@ -102,15 +102,3 @@ class Devices:
                 io.addToBuffer(val)
                 i = i + 1
           
-
-            
-        
-
-
-def main():
-    dev = Devices()
-    dev.readSettings()
-    print("valmis")
-
-
-main()

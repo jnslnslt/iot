@@ -1,0 +1,18 @@
+[
+    {
+        "devices": [
+            {"deviceId": "100",
+                "deviceName":"TestName",
+            "IO": [
+                {"M": "val1", "name": "name1"},
+                {"M": "val2", "name": "name2"}
+            ]},
+            {"deviceId": "101",
+                "deviceName":"TestName2",
+            "IO": [
+                {"M": "val3", "name": "name3"}
+            ]}
+
+        ]
+    }
+]

@@ -6,9 +6,10 @@ class TestDataManager(unittest.TestCase):
 
     def setUp(self):
         self.manager = DataManager.Devices()
+        self.manager.readSettings('C:/Users/janis/Documents/iot/data_handling/testSettings.json')
+
     
     def test_readSettings(self):
-        self.manager.readSettings('C:/Users/janis/Documents/iot/data_handling/testSettings.json')
         device1 = self.manager.devices.get("100")
         self.assertNotEquals(device1, None, "Device 1 not found")
         IOs = device1.getIO()
@@ -16,8 +17,10 @@ class TestDataManager(unittest.TestCase):
         
 
     def test_saveFromSerial(self):
-        self.manager.saveFromSerial("888001 10.00 32.00 nan")
-        #result = pd.read_hdf('')
+        for i in range(0,20):
+            self.manager.saveFromSerial("100 10.00 nan")
+        result = pd.read_hdf('TestName.h5', 'val1')
+        self.assertEquals(result[0], 10)
 
 
 if __name__ == '__main__':

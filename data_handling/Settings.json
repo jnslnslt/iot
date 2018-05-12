@@ -9,10 +9,15 @@
                 {"M3": "H01", "name": "AM2320B-H"}
             ]},
             {"deviceId": "888002",
+                "deviceName":"Arduino2 - ...",
             "IO": [
 
             ]}
 
         ]
+    },
+    {
+        "serial_port": "/dev/ttyACM0",
+        "baud_rate": "9600"
     }
 ]

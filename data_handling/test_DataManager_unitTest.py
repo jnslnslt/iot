@@ -5,7 +5,7 @@ import pandas as pd
 class TestDataManager(unittest.TestCase):
 
     def setUp(self):
-        self.manager = DataManager.Devices()
+        self.manager = DataManager.DataManager()
         self.manager.readSettings('C:/Users/janis/Documents/iot/data_handling/testSettings.json')
 
     

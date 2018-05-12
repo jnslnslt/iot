@@ -4,9 +4,9 @@
             {"deviceId": "888001",
                 "deviceName":"Arduino1 - tempMeasure",
             "IO": [
-                {"M1": "T01", "name": "PT100"},
-                {"M2": "T02", "name": "AM2320B-T"},
-                {"M3": "H01", "name": "AM2320B-H"}
+                {"M": "T01", "name": "PT100"},
+                {"M": "T02", "name": "AM2320B-T"},
+                {"M": "H01", "name": "AM2320B-H"}
             ]},
             {"deviceId": "888002",
                 "deviceName":"Arduino2 - ...",

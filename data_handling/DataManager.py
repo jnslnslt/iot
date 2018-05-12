@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import os
+import datetime
 
 TARGET_FILE = "store.h5"
 
@@ -8,16 +9,18 @@ TARGET_FILE = "store.h5"
 # values can be added to buffer to prevent continuous
 # disk writing
 class IO:
-    def __init__(self, io):
+    def __init__(self, io, device):
         self.io = io
-        self.buffer = []
+        self.buffer = {}
+        self.filename = device + ".h5"
+    # add timestamp-value pair to buffer. If buffer is larger than 10
+    #  instances, write to hdfs file and clear buffer
     def addToBuffer(self, value):
-        self.buffer.append(value)
-        if len(self.buffer) > 10:
-            #todo
+        self.buffer[datetime.datetime.now().isoformat()] = value
+        if len(self.buffer) >= 10:
             #save to file
-            timeSeries = pd.Serial(self.buffer)
-            timeSeries.to_hdf('store.h5', 'table')
+            timeSeries = pd.Series(self.buffer)
+            timeSeries.to_hdf(self.filename, self.io, mode='a', format='table', append=True)
             #empty buffer
             self.buffer = []
             

@@ -23,6 +23,9 @@ class IO:
             timeSeries.to_hdf(self.filename, self.io, mode='a', format='table', append=True)
             #empty buffer
             self.buffer = []
+
+    def getCode(self):
+        return self.io
             
 
 # Class for arduino device, contains deviceId
@@ -35,7 +38,7 @@ class Device:
     
     # create IO object and add to list
     def addIO (self, io):
-        self.io.append(IO(io))
+        self.io.append(IO(io,self.deviceName))
     
     # return IO objects
     def getIO (self):
@@ -71,7 +74,7 @@ class Devices:
     # function to add values to io buffer
     # including verification and exception handling
     def saveFromSerial(self, message):
-        values = message.split("")
+        values = message.split(" ")
         # check if message is empty
         if (values.empty()):
             return

@@ -20,9 +20,10 @@ class IO:
         if len(self.buffer) >= 10:
             #save to file
             timeSeries = pd.Series(self.buffer)
+            print("filename: ", self.filename)
             timeSeries.to_hdf(self.filename, self.io, mode='a', format='table', append=True)
             #empty buffer
-            self.buffer = []
+            self.buffer = {}
 
     def getCode(self):
         return self.io
@@ -80,13 +81,16 @@ class Devices:
         values = message.split(" ")
         # check if message is empty
         if (not values):
+            print("empty message") #debug
             return
         device = self.devices.get(values[0])
         # check if device exists in settings
         if (device == None):
+            print("device ", values[0], " not found") #debug
             return
         # check if length of message matches device io number
         elif (len(values)-1 != device.getIOLength()):
+            print("message length does not match") #debug
             return
         else:
             i = 1 
@@ -96,6 +100,7 @@ class Devices:
                 except ValueError:
                     val = 'nan'
                 io.addToBuffer(val)
+                i = i + 1
           
 
             

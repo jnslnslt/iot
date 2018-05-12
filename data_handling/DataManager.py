@@ -1,4 +1,4 @@
-#import pandas as pd
+import pandas as pd
 import json
 import os
 
@@ -16,8 +16,8 @@ class IO:
         if len(self.buffer) > 10:
             #todo
             #save to file
-            #timeSeries = pd.Serial(self.buffer)
-            #timeSeries.to_hdf('store.h5', 'table')
+            timeSeries = pd.Serial(self.buffer)
+            timeSeries.to_hdf('store.h5', 'table')
             #empty buffer
             self.buffer = []
             
@@ -25,8 +25,9 @@ class IO:
 # Class for arduino device, contains deviceId
 # (which is send via rf) and 1+ IO-objects
 class Device:
-    def __init__(self, deviceId):
+    def __init__(self, deviceId, deviceName):
         self.deviceId = deviceId
+        self.deviceName = deviceName
         self.io = []
     
     # create IO object and add to list
@@ -57,7 +58,7 @@ class Devices:
 
         # loop over all device instances and save to devices-dict
         for device in data[0]["devices"]:
-            d = Device(device["deviceId"])
+            d = Device(device["deviceId"], device["deviceName"])
             for io in device["IO"]:
                 d.addIO(io)
             self.devices[d.deviceId] = d

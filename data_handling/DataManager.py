@@ -59,15 +59,18 @@ class Devices:
             data = json.load(jsonFile)
         except FileNotFoundError:
             print("File does not exist")
+            return
         except:
             print("File reading failed")
-
+            return
         # loop over all device instances and save to devices-dict
         for device in data[0]["devices"]:
             d = Device(device["deviceId"], device["deviceName"])
             for io in device["IO"]:
-                d.addIO(io)
+                d.addIO(io["M"])
             self.devices[d.deviceId] = d
+
+        jsonFile.close()
 
         # other settings could be handled here
 
@@ -76,7 +79,7 @@ class Devices:
     def saveFromSerial(self, message):
         values = message.split(" ")
         # check if message is empty
-        if (values.empty()):
+        if (not values):
             return
         device = self.devices.get(values[0])
         # check if device exists in settings

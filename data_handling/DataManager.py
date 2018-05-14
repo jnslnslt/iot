@@ -16,7 +16,7 @@ class IO:
     # add timestamp-value pair to buffer. If buffer is larger than 10
     #  instances, write to hdfs file and clear buffer
     def addToBuffer(self, value):
-        self.buffer[datetime.datetime.now().isoformat()] = value
+        self.buffer[pd.Timestamp.now()] = value
         if len(self.buffer) >= 10:
             #save to file
             timeSeries = pd.Series(self.buffer)
